@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galerie - Cabanele A-nuc-A</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="gallery.css">
+</head>
+<body>
+<!-- Header -->
+<header>
+    <nav>
+        <a href="index.html" class="logo">
+            <i class="fas fa-home"></i> Cabanele A-nuc-A
+        </a>
+        <ul class="nav-links">
+            <li><a href="index.html">Acasă</a></li>
+            <li><a href="about.html">Despre Noi</a></li>
+            <li><a href="gallery.html">Galerie</a></li>
+            <li><a href="reservation.html">Rezervări</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
+</header>
+
+<!-- Gallery Section -->
+<section class="gallery-section">
+    <h2 class="section-title">Galerie Foto</h2>
+
+    <div class="gallery">
+        <!-- Cabana 1 -->
+        <div class="gallery-item" onclick="openAlbum('cabana1')">
+            <img src="images/cabana1.jpg" alt="Cabana No. 1" class="gallery-image">
+            <div class="image-overlay">
+                <p>Cabana No. 1</p>
+            </div>
+        </div>
+
+        <!-- Spațiu Living -->
+        <div class="gallery-item" onclick="openAlbum('living')">
+            <img src="images/interior4.jpg" alt="Spațiu Living" class="gallery-image">
+            <div class="image-overlay">
+                <p>Spațiu Living</p>
+            </div>
+        </div>
+
+        <!-- Peisaj -->
+        <div class="gallery-item" onclick="openAlbum('peisaj')">
+            <img src="images/view3.jpg" alt="Peisaj Montan" class="gallery-image">
+            <div class="image-overlay">
+                <p>Peisaj Montan</p>
+            </div>
+        </div>
+
+        <!-- Drumeții -->
+        <div class="gallery-item" onclick="openAlbum('drumetie')">
+            <img src="images/Cabana4.jpg" alt="Drumeții" class="gallery-image">
+            <div class="image-overlay">
+                <p>Drumeții</p>
+            </div>
+        </div>
+
+        <!-- Cabana 2 -->
+        <div class="gallery-item" onclick="openAlbum('cabana2')">
+            <img src="images/cabana2.jpg" alt="Cabana No. 2" class="gallery-image">
+            <div class="image-overlay">
+                <p>Cabana No. 2</p>
+            </div>
+        </div>
+
+        <!-- Dormitor -->
+        <div class="gallery-item" onclick="openAlbum('dormitor')">
+            <img src="images/interior2.jpg" alt="Cameră de Dormit" class="gallery-image">
+            <div class="image-overlay">
+                <p>Cameră de Dormit</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Albume (ascunse initial) -->
+<div id="cabana1-album" class="album">
+    <div class="album-content">
+        <span class="close-btn" onclick="closeAlbum()">&times;</span>
+        <h2 class="album-title">Cabana No. 1</h2>
+        <div class="album-grid">
+            <img src="images/cabana1.jpg" alt="Cabana 1 - vedere 1" class="album-img">
+            <img src="images/cabana2.jpg" alt="Cabana 1 - vedere 2" class="album-img">
+            <img src="images/view1.jpg" alt="Cabana 1 - vedere 3" class="album-img">
+            <img src="images/view6.jpg" alt="Cabana 1 - vedere 4" class="album-img">
+        </div>
+    </div>
+</div>
+
+<div id="living-album" class="album">
+    <div class="album-content">
+        <span class="close-btn" onclick="closeAlbum()">&times;</span>
+        <h2 class="album-title">Spațiu Living</h2>
+        <div class="album-grid">
+            <img src="images/interior1.jpg" alt="Living - vedere 1" class="album-img">
+            <img src="images/semineu.jpg" alt="Living - vedere 2" class="album-img">
+            <img src="images/interior4.jpg" alt="Living - vedere 3" class="album-img">
+        </div>
+    </div>
+</div>
+
+<div id="peisaj-album" class="album">
+    <div class="album-content">
+        <span class="close-btn" onclick="closeAlbum()">&times;</span>
+        <h2 class="album-title">Peisaj Montan</h2>
+        <div class="album-grid">
+            <img src="images/ciubar3.jpg" alt="Peisaj 1" class="album-img">
+            <img src="images/view2.jpg" alt="Peisaj 2" class="album-img">
+            <img src="images/view3.jpg" alt="Peisaj 3" class="album-img">
+            <img src="images/view4.jpg" alt="Peisaj 4" class="album-img">
+        </div>
+    </div>
+</div>
+
+<div id="drumetie-album" class="album">
+    <div class="album-content">
+        <span class="close-btn" onclick="closeAlbum()">&times;</span>
+        <h2 class="album-title">Drumeții</h2>
+        <div class="album-grid">
+            <img src="images/Cabana3Iarna.jpg" alt="Drumeție 1" class="album-img">
+            <img src="images/view5.jpg" alt="Drumeție 2" class="album-img">
+            <img src="images/view1.jpg" alt="Drumeție 3" class="album-img">
+        </div>
+    </div>
+</div>
+
+<div id="cabana2-album" class="album">
+    <div class="album-content">
+        <span class="close-btn" onclick="closeAlbum()">&times;</span>
+        <h2 class="album-title">Cabana No. 2</h2>
+        <div class="album-grid">
+            <img src="images/interior1.jpg" alt="Cabana 2 - vedere 1" class="album-img">
+            <img src="images/interior2.jpg" alt="Cabana 2 - vedere 2" class="album-img">
+            <img src="images/interior3.jpg" alt="Cabana 2 - vedere 3" class="album-img">
+            <img src="images/interior4.jpg" alt="Cabana 2 - vedere 4" class="album-img">
+        </div>
+    </div>
+</div>
+
+<div id="dormitor-album" class="album">
+    <div class="album-content">
+        <span class="close-btn" onclick="closeAlbum()">&times;</span>
+        <h2 class="album-title">Cameră de Dormit</h2>
+        <div class="album-grid">
+            <img src="images/interior2.jpg" alt="Dormitor 1" class="album-img">
+            <img src="images/semineu.jpg" alt="Dormitor 2" class="album-img">
+            <img src="images/interior3.jpg" alt="Dormitor 3" class="album-img">
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer>
+    <div class="footer-content">
+        <div class="footer-section">
+            <h3>Contact</h3>
+            <p><i class="fas fa-phone"></i> +40 745 174 871</p>
+            <p><i class="fas fa-envelope"></i> cabaneleanuca@gmail.com</p>
+            <p><i class="fas fa-map-marker-alt"></i> Dănești, Maramureș, România</p>
+        </div>
+        <div class="footer-section">
+            <h3>Informații</h3>
+            <a href="#">Termeni și Condiții</a>
+            <a href="#">Politica de Confidențialitate</a>
+            <a href="#">Politica de Anulare</a>
+            <a href="#">Întrebări Frecvente</a>
+        </div>
+        <div class="footer-section">
+            <h3>Urmărește-ne</h3>
+            <div class="social-links">
+                <a href="https://www.facebook.com/share/16nfmyoENE/" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook"></i></a>
+                <a href="https://www.instagram.com/cabanele_a_nuc_a?igsh=MTd2eTRjOG9oZmxhOQ==" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+                <a href="#"><i class="fab fa-tripadvisor"></i></a>
+            </div>
+        </div>
+    </div>
+    <p class="footer-bottom">&copy; 2025 Cabanele A-nuc-A. Toate drepturile rezervate.</p>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>

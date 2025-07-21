@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rezervări - Cabanele A-nuc-A</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="reservation.css">
+</head>
+<body>
+<!-- Header -->
+<header>
+    <nav>
+        <a href="index.html" class="logo">
+            <i class="fas fa-home"></i> Cabanele A-nuc-A
+        </a>
+        <ul class="nav-links">
+            <li><a href="index.html">Acasă</a></li>
+            <li><a href="about.html">Despre Noi</a></li>
+            <li><a href="gallery.html">Galerie</a></li>
+            <li><a href="reservation.html">Rezervări</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
+</header>
+
+<!-- Reservation Section -->
+<section class="reservation-section">
+    <div class="reservation-container">
+        <h2 class="section-title">Rezervă Cabana Ta</h2>
+        <p class="reservation-subtitle">Completează formularul de mai jos pentru a-ți asigura locul în acest colț de rai</p>
+
+        <form id="reservation-form" class="reservation-form">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="name">Nume complet</label>
+                    <input type="text" id="name" name="name" required placeholder="Introdu numele tău complet">
+                </div>
+                <div class="form-group">
+                    <label for="email">Adresă de email</label>
+                    <input type="email" id="email" name="email" required placeholder="Introdu adresa ta de email">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="cabinType">Tipul de cabană</label>
+                <select id="cabinType" name="cabinType" required>
+                    <option value="">Selectează tipul de cabană</option>
+                    <option value="STANDARD">Cabana Standard - 150 LEI/noapte</option>
+                    <option value="FAMILIE">Cabana Familie - 200 LEI/noapte</option>
+                    <option value="DELUXE">Cabana Deluxe - 250 LEI/noapte</option>
+                </select>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="checkIn">Data Check-in</label>
+                    <input type="date" id="checkIn" name="checkIn" required>
+                </div>
+                <div class="form-group">
+                    <label for="checkOut">Data Check-out</label>
+                    <input type="date" id="checkOut" name="checkOut" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="nights-display">Numărul de nopți</label>
+                    <input type="text" id="nights-display" name="nights-display" readonly placeholder="Se va calcula automat">
+                </div>
+                <div class="form-group">
+                    <label for="price-display">Preț Total</label>
+                    <input type="text" id="price-display" name="price-display" readonly placeholder="Prețul se va calcula automat">
+                </div>
+            </div>
+
+            <div id="availability-message" class="availability-message"></div>
+
+            <button type="submit" class="submit-btn">
+                <i class="fas fa-paper-plane"></i> Trimite Rezervarea
+            </button>
+            <button type="button" id="pay-button" class="submit-btn">
+                <i class="fas fa-credit-card"></i> Plătește Online
+            </button>
+
+
+            <div id="response"></div>
+        </form>
+    </div>
+</section>
+
+<!-- Pricing Section -->
+<section class="pricing-section">
+    <h2 class="section-title">Tarife</h2>
+    <div class="pricing-container">
+        <div class="pricing-row">
+            <div class="pricing-card" data-cabin-type="STANDARD">
+                <h3>Cabana Standard</h3>
+                <div class="price">150 LEI/noapte</div>
+                <ul>
+                    <li><i class="fas fa-check"></i> 2 persoane</li>
+                    <li><i class="fas fa-check"></i> Pat matrimonial</li>
+                    <li><i class="fas fa-check"></i> Baie privată</li>
+                    <li><i class="fas fa-check"></i> Bucătărie mică</li>
+                </ul>
+                <button type="button" class="select-cabin-btn" onclick="selectCabin('STANDARD')">
+                    Selectează
+                </button>
+            </div>
+            <div class="pricing-card featured" data-cabin-type="FAMILIE">
+                <h3>Cabana Familie</h3>
+                <div class="price">200 LEI/noapte</div>
+                <ul>
+                    <li><i class="fas fa-check"></i> 4 persoane</li>
+                    <li><i class="fas fa-check"></i> 2 paturi separate</li>
+                    <li><i class="fas fa-check"></i> Baie privată</li>
+                    <li><i class="fas fa-check"></i> Bucătărie completă</li>
+                </ul>
+                <button type="button" class="select-cabin-btn" onclick="selectCabin('FAMILIE')">
+                    Selectează
+                </button>
+            </div>
+            <div class="pricing-card" data-cabin-type="DELUXE">
+                <h3>Cabana Deluxe</h3>
+                <div class="price">250 LEI/noapte</div>
+                <ul>
+                    <li><i class="fas fa-check"></i> 2 persoane</li>
+                    <li><i class="fas fa-check"></i> Pat matrimonial</li>
+                    <li><i class="fas fa-check"></i> Cadă cu hidromasaj</li>
+                    <li><i class="fas fa-check"></i> Terasă privată</li>
+                </ul>
+                <button type="button" class="select-cabin-btn" onclick="selectCabin('DELUXE')">
+                    Selectează
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer>
+    <div class="footer-content">
+        <div class="footer-section">
+            <h3>Contact</h3>
+            <p><i class="fas fa-phone"></i> +40 745 174 871</p>
+            <p><i class="fas fa-envelope"></i> cabaneleanuca@gmail.com</p>
+            <p><i class="fas fa-map-marker-alt"></i> Dănești, Maramureș, România</p>
+        </div>
+        <div class="footer-section">
+            <h3>Informații</h3>
+            <a href="#">Termeni și Condiții</a>
+            <a href="#">Politica de Confidențialitate</a>
+            <a href="#">Politica de Anulare</a>
+            <a href="#">Întrebări Frecvente</a>
+        </div>
+        <div class="footer-section">
+            <h3>Urmărește-ne</h3>
+            <div class="social-links">
+                <a href="https://www.facebook.com/share/16nfmyoENE/" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook"></i></a>
+                <a href="https://www.instagram.com/cabanele_a_nuc_a?igsh=MTd2eTRjOG9oZmxhOQ==" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+                <a href="#"><i class="fab fa-tripadvisor"></i></a>
+            </div>
+        </div>
+    </div>
+    <p class="footer-bottom">&copy; 2025 Cabanele A-nuc-A. Toate drepturile rezervate.</p>
+</footer>
+
+<script src="app.js"></script>
+<script src="https://js.stripe.com/v3/"></script>
+
+</body>
+</html>
