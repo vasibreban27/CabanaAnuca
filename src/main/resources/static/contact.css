@@ -245,3 +245,28 @@
     }
 }
 
+/* Stiluri pentru noile secțiuni */
+.info-section {
+    background-color: #fff;
+    padding: 4rem 2rem;
+    margin: 2rem auto;
+    max-width: 1200px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+.info-content {
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+.info-content p {
+    margin-bottom: 1rem;
+}
+
+/* Adaugă padding suplimentar pentru a compensa header-ul fix */
+section {
+    scroll-margin-top: 100px;
+}
+

@@ -173,10 +173,9 @@ async function handleFormSubmission(event) {
 
     const form = event.target;
     const submitBtn = form.querySelector('.submit-btn');
-    //const responseDiv = document.getElementById('response');
 
     // Validează toate câmpurile
-    const requiredFields = form.querySelectorAll('input[required]');
+    const requiredFields = form.querySelectorAll('input[required], select[required]');
     let isFormValid = true;
 
     requiredFields.forEach(field => {
@@ -203,7 +202,9 @@ async function handleFormSubmission(event) {
             email: formData.get('email'),
             checkIn: formData.get('checkIn'),
             checkOut: formData.get('checkOut'),
-            cabinType: formData.get('cabinType')
+            cabinType: formData.get('cabinType'),
+            paid: false, // Implicit, rezervarea nu este plătită
+            paymentMethod: "CASH" // Metoda implicită de plată (la fața locului)
         };
 
         console.log('Sending reservation data:', reservationData);
@@ -219,14 +220,24 @@ async function handleFormSubmission(event) {
         });
 
         console.log('Response status:', response.status);
-        console.log('Response headers:', response.headers);
 
         if (response.ok) {
             const result = await response.json();
             console.log('Success result:', result);
-            showResponse(`Rezervarea a fost înregistrată cu succes! Numărul rezervării: ${result.id || 'N/A'}`, 'success');
+
+            // Mesaj diferit în funcție de metoda de plată
+            const successMessage = reservationData.paymentMethod === "CASH"
+                ? `Rezervarea a fost înregistrată cu succes! Numărul rezervării: ${result.id || 'N/A'}. Veți plăti la fața locului.`
+                : `Rezervarea a fost înregistrată cu succes! Numărul rezervării: ${result.id || 'N/A'}`;
+
+            showResponse(successMessage, 'success');
             form.reset();
             document.getElementById('price-display').value = '';
+
+            // Resetează selecția vizuală a cabanelor
+            document.querySelectorAll('.pricing-card').forEach(card => {
+                card.classList.remove('selected');
+            });
         } else {
             const errorText = await response.text();
             console.error('Error response:', errorText);
@@ -410,25 +421,88 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Form submission handling (example)
+    //send contact message
     const contactForm = document.querySelector('.contact-form');
     if (contactForm) {
-        contactForm.addEventListener('submit', function(e) {
+        contactForm.addEventListener('submit', async function(e) {
             e.preventDefault();
 
-            // Here you would normally send the form data to your server
-            // For demo purposes, we'll just show the success message
-            const successMessage = this.querySelector('.response-message.success');
-            successMessage.style.display = 'block';
+            const form = e.target;
+            const submitBtn = form.querySelector('.submit-btn');
+            const successMessage = form.querySelector('.response-message.success');
+            const errorMessage = form.querySelector('.response-message.error');
 
-            // Reset form after 3 seconds
-            setTimeout(() => {
-                this.reset();
-                successMessage.style.display = 'none';
-            }, 3000);
+            //hide any previous messages
+            successMessage.style.display = 'none';
+            errorMessage.style.display = 'none';
+
+            //basic validation
+            const requiredFields = form.querySelectorAll('[required]');
+            let isValid = true;
+
+            requiredFields.forEach(field => {
+                if (!field.value.trim()) {
+                    isValid = false;
+                    field.style.borderColor = '#dc3545';
+                }else{
+                    filed.style.borderColor = '';
+                }
+            });
+
+            if (!isValid) {
+                errorMessage.textContent = 'Vă rugăm să completați toate câmpurile obligatorii.';
+                errorMessage.style.display = 'block';
+                return;
+            }
+
+
+            const formData = {
+                name: form.querySelector('#name').value,
+                email: form.querySelector('#email').value,
+                subject: form.querySelector('#subject').value,
+                message: form.querySelector('#message').value
+            };
+
+            //show loading state
+            submitBtn.disabled = true;
+            const originalBtnText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Se trimite...';
+
+            try {
+                //send to your backend API
+                const response = await fetch(`${CONFIG.API_BASE_URL}/contact`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept':'application/json'
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                if (response.ok) {
+                    successMessage.style.display = 'block';
+                    form.reset();
+                } else {
+                    const error = await response.text();
+                    throw new Error(error || 'Eroare la trimiterea mesajului');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                errorMessage.textContent = `Eroare: ${error.message}`;
+                errorMessage.style.display = 'block';
+            } finally {
+                //restore button state
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalBtnText;
+
+                //hide messages after 5 seconds
+                setTimeout(() => {
+                    successMessage.style.display = 'none';
+                    errorMessage.style.display = 'none';
+                }, 5000);
+            }
         });
     }
-});
 
 document.addEventListener('DOMContentLoaded', function() {
     // Team member photos - replace with actual images
@@ -762,29 +836,118 @@ document.getElementById('cabinType').addEventListener('change', updatePriceAndAv
 // });
 
 
-document.getElementById("pay-button").addEventListener("click", async function () {
-    const stripe = Stripe("pk_test_51RnEYgQIGXPdxi2IlzbuVWo7ZxxCJT63vwRlm92LBAKg3fYd0oaYOCxmQvzXJk0d5lT2HOFBYRiy9FEZ54knFstk00xjkEkz2L"); // publishable key
+// document.getElementById("pay-button").addEventListener("click", async function () {
+//     const stripe = Stripe("pk_test_51RnEYgQIGXPdxi2IlzbuVWo7ZxxCJT63vwRlm92LBAKg3fYd0oaYOCxmQvzXJk0d5lT2HOFBYRiy9FEZ54knFstk00xjkEkz2L"); // publishable key
+//
+//     const amount = parseFloat(document.getElementById("price-display").value);
+//     const cabinType = document.getElementById("cabinType").value;
+//
+//     const response = await fetch("http://localhost:8081/api/payment/create-checkout-session", {
+//         method: "POST",
+//         headers: {
+//             "Content-Type": "application/json"
+//         },
+//         body: JSON.stringify({
+//             amount: amount,
+//             cabinType: cabinType
+//         })
+//     });
+//
+//     const session = await response.json();
+//     const result = await stripe.redirectToCheckout({
+//         sessionId: session.id
+//     });
+//
+//     if (result.error) {
+//         alert(result.error.message);
+//     }
+// });
 
-    const amount = parseFloat(document.getElementById("price-display").value);
-    const cabinType = document.getElementById("cabinType").value;
 
-    const response = await fetch("http://localhost:8081/api/payment/create-checkout-session", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            amount: amount,
-            cabinType: cabinType
-        })
+document.getElementById("pay-button").addEventListener("click", async function (e) {
+    e.preventDefault();
+
+    // Validează formularul
+    const requiredFields = document.querySelectorAll('#reservation-form input[required], #reservation-form select[required]');
+    let isFormValid = true;
+
+    requiredFields.forEach(field => {
+        if (!validateField(field)) {
+            isFormValid = false;
+        }
     });
 
-    const session = await response.json();
-    const result = await stripe.redirectToCheckout({
-        sessionId: session.id
-    });
-
-    if (result.error) {
-        alert(result.error.message);
+    if (!isFormValid) {
+        showResponse('Vă rugăm să corectați erorile din formular înainte de plată.', 'error');
+        return;
     }
-});
+
+    // Colectează datele din formular
+    const formData = new FormData(document.getElementById('reservation-form'));
+    const reservationData = {
+        name: formData.get('name'),
+        email: formData.get('email'),
+        checkIn: formData.get('checkIn'),
+        checkOut: formData.get('checkOut'),
+        cabinType: formData.get('cabinType'),
+        paymentMethod: "CARD" // Plată online
+    };
+
+    // Afișează loading state
+    const payBtn = document.getElementById("pay-button");
+    const originalBtnText = payBtn.innerHTML;
+    payBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Se procesează...';
+    payBtn.disabled = true;
+
+    try {
+        // 1. Salvează rezervarea în baza de date
+        const reservationResponse = await fetch(`${CONFIG.API_BASE_URL}/reservations`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify(reservationData)
+        });
+
+        if (!reservationResponse.ok) {
+            const errorText = await reservationResponse.text();
+            throw new Error(`Eroare la crearea rezervării: ${errorText}`);
+        }
+
+        const reservation = await reservationResponse.json();
+
+        // 2. Inițiază plata cu Stripe
+        const stripe = Stripe("pk_test_51RnEYgQIGXPdxi2IlzbuVWo7ZxxCJT63vwRlm92LBAKg3fYd0oaYOCxmQvzXJk0d5lT2HOFBYRiy9FEZ54knFstk00xjkEkz2L");
+
+        const paymentResponse = await fetch(`${CONFIG.API_BASE_URL}/payment/create-checkout-session`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                amount: parseFloat(document.getElementById("price-display").value.replace(/[^\d.]/g, '')),
+                cabinType: reservationData.cabinType,
+                reservationId: reservation.id,
+                paymentMethod: "CARD"
+            })
+        });
+
+        const session = await paymentResponse.json();
+        const result = await stripe.redirectToCheckout({
+            sessionId: session.id
+        });
+
+        if (result.error) {
+            throw new Error(result.error.message);
+        }
+
+    } catch (error) {
+        console.error('Payment error:', error);
+        showResponse(`Eroare la procesarea plății: ${error.message}`, 'error');
+    } finally {
+        // Restaurează butonul
+        payBtn.innerHTML = originalBtnText;
+        payBtn.disabled = false;
+    }
+});}

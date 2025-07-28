@@ -260,3 +260,45 @@ footer {
 html {
     scroll-behavior: smooth;
 }
+
+.success-page, .cancel-page {
+    max-width: 600px;
+    margin: 100px auto;
+    padding: 40px;
+    text-align: center;
+    border-radius: 12px;
+    background-color: #f9f9f9;
+    box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.success-page h1 {
+    color: #2ecc71;
+    margin-bottom: 20px;
+}
+
+.cancel-page h1 {
+    color: #e74c3c;
+    margin-bottom: 20px;
+}
+
+.success-page p, .cancel-page p {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+.success-page .btn,
+.cancel-page .btn {
+    padding: 10px 25px;
+    background-color: #3498db;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background 0.3s ease;
+}
+
+.success-page .btn:hover,
+.cancel-page .btn:hover {
+    background-color: #2980b9;
+}

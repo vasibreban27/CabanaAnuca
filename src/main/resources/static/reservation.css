@@ -18,6 +18,9 @@
 .reservation-section .section-title {
     color: var(--light-color);
 }
+.reservation-section .section-subtitle {
+    justify-content: center;
+}
 
 .reservation-section .section-title::after {
     background: linear-gradient(90deg, var(--accent-color), white);
@@ -185,4 +188,38 @@
     opacity: 0.6;
     cursor: not-allowed;
     transform: none;
+}
+
+/* Stiluri pentru dropdown-ul de selecție a cabinei */
+#cabinType {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 1.2rem;
+    padding-right: 3rem;
+}
+
+#cabinType option {
+    background-color: var(--dark-color);
+    color: white;
+    padding: 1rem;
+}
+
+/* Stiluri pentru hover pe opțiuni */
+#cabinType option:hover {
+    background-color: var(--accent-color);
+    color: var(--dark-color);
+}
+
+/* Stiluri pentru focus pe dropdown */
+#cabinType:focus {
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+/* Stiluri pentru când dropdown-ul este deschis */
+#cabinType:active, #cabinType:focus {
+    color: white;
 }

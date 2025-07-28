@@ -25,10 +25,8 @@ public class ReservationController {
     @PostMapping
     public ResponseEntity<?> createReservation(@RequestBody Map<String, String> requestData) {
         try {
-            // 1. Debug: Afișează tot request-ul primit
             System.out.println("Request data received: " + requestData);
 
-            // 2. Validare câmpuri obligatorii (cu verificare pentru string gol)
             if (requestData.get("name") == null || requestData.get("name").isEmpty() ||
                     requestData.get("email") == null || requestData.get("email").isEmpty() ||
                     requestData.get("checkIn") == null || requestData.get("checkIn").isEmpty() ||
@@ -42,12 +40,23 @@ public class ReservationController {
                 return ResponseEntity.badRequest().body("Toate câmpurile sunt obligatorii");
             }
 
-            // 3. Creare rezervare
             Reservation reservation = new Reservation();
             reservation.setName(requestData.get("name"));
             reservation.setEmail(requestData.get("email"));
 
-            // 4. Conversie date
+            reservation.setPaid(requestData.containsKey("paid") ? Boolean.parseBoolean(requestData.get("paid")) : false);
+
+            if (requestData.containsKey("paymentMethod")) {
+                try {
+                    reservation.setPaymentMethod(Reservation.PaymentMethod.valueOf(
+                            requestData.get("paymentMethod").toUpperCase()));
+                } catch (IllegalArgumentException e) {
+                    return ResponseEntity.badRequest().body("Metodă de plată invalidă. Opțiuni: CASH, CARD");
+                }
+            } else {
+                reservation.setPaymentMethod(Reservation.PaymentMethod.CASH);
+            }
+
             try {
                 reservation.setCheckIn(LocalDate.parse(requestData.get("checkIn")));
                 reservation.setCheckOut(LocalDate.parse(requestData.get("checkOut")));
@@ -55,7 +64,6 @@ public class ReservationController {
                 return ResponseEntity.badRequest().body("Format dată invalid. Folosiți formatul YYYY-MM-DD");
             }
 
-            // 5. Conversie cabinType
             try {
                 String cabinTypeStr = requestData.get("cabinType").toUpperCase();
                 reservation.setCabinType(Reservation.CabinType.valueOf(cabinTypeStr));
@@ -64,12 +72,10 @@ public class ReservationController {
                         Arrays.toString(Reservation.CabinType.values()));
             }
 
-            // 6. Validare logică
             if (reservation.getCheckIn().isAfter(reservation.getCheckOut())) {
                 return ResponseEntity.badRequest().body("Check-in trebuie să fie înainte de check-out");
             }
 
-            // 7. Verificare disponibilitate
             List<Reservation> overlapping = reservationRepository
                     .findByCabinTypeAndCheckInLessThanEqualAndCheckOutGreaterThanEqual(
                             reservation.getCabinType(),
@@ -81,20 +87,19 @@ public class ReservationController {
                 return ResponseEntity.badRequest().body("Cabina nu este disponibilă în perioada selectată");
             }
 
-            // 8. Calcul preț
             long nights = ChronoUnit.DAYS.between(reservation.getCheckIn(), reservation.getCheckOut());
             reservation.setTotalPrice(nights * reservation.getCabinType().getPricePerNight());
 
-            // 9. Salvare
             Reservation savedReservation = reservationRepository.save(reservation);
 
-            // 10. Email (opțional)
             try {
                 emailService.sendReservationConfirmation(
                         savedReservation.getEmail(),
                         savedReservation.getName(),
                         savedReservation.getCheckIn(),
-                        savedReservation.getCheckOut()
+                        savedReservation.getCheckOut(),
+                        savedReservation.isPaid(), // Adăugat starea plății în email
+                        savedReservation.getPaymentMethod().toString() // Adăugat metoda de plată în email
                 );
             } catch (Exception e) {
                 System.err.println("Eroare email (necritică): " + e.getMessage());

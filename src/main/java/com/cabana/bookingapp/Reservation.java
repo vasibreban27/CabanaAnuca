@@ -1,5 +1,6 @@
 package com.cabana.bookingapp;
 
+import com.stripe.model.PaymentMethod;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -19,7 +20,13 @@ public class Reservation {
     @Enumerated(EnumType.STRING)
     private CabinType cabinType;
     private Double totalPrice;
+    @Enumerated(EnumType.STRING)
+    private PaymentMethod paymentMethod;
+    private Boolean paid = false;
 
+    public enum PaymentMethod {
+        CASH, CARD
+    }
     public enum CabinType {
         STANDARD(150.0, "Cabana Standard"),
         FAMILIE(200.0, "Cabana Familie"),
@@ -115,6 +122,24 @@ public class Reservation {
     public void setTotalPrice(Double totalPrice) {
         this.totalPrice = totalPrice;
     }
+    public Boolean getPaid(){
+        return paid;
+    }
+    public void setPaid(Boolean paid) {
+        this.paid = paid;
+    }
+
+    public PaymentMethod getPaymentMethod() {
+        return paymentMethod;
+    }
+
+    public void setPaymentMethod(PaymentMethod paymentMethod) {
+        this.paymentMethod = paymentMethod;
+    }
+    public boolean isPaid(){
+        return paid;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -143,6 +168,8 @@ public class Reservation {
                 ", checkOut=" + checkOut +
                 ", cabinType=" + cabinType +
                 ", totalPrice=" + totalPrice +
+                ", isPaid=" + paid +
+                ", paymentMethod=" + paymentMethod +
                 '}';
     }
 }
