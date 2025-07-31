@@ -4,6 +4,7 @@
 .hero {
     position: relative;
     height: 100vh;
+    min-height: 700px;
     overflow: hidden;
     color: var(--light-color);
 }
@@ -38,7 +39,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.3);
+    background: linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.7) 100%);
 }
 
 .hero-content {
@@ -54,12 +55,14 @@
 }
 
 .hero-content h1 {
-    font-size: 4rem;
-    font-weight: 800;
+    font-size: 4.5rem;
+    font-weight: 700;
     margin-bottom: 1.5rem;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     animation: fadeInUp 1s ease;
-    line-height: 1.2;
+    line-height: 1.1;
+    letter-spacing: -1px;
+    font-family: 'Playfair Display', serif;
 }
 
 .hero-content h1 span {
@@ -86,6 +89,7 @@
     max-width: 700px;
     margin-left: auto;
     margin-right: auto;
+    font-weight: 400;
 }
 
 .hero-btns {
@@ -150,16 +154,17 @@
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 2.5rem;
     margin-top: 3rem;
+    justify-content: center;
 }
 
 .feature-card {
     background: white;
-    border-radius: 15px;
+    border-radius: 12px;
     box-shadow: var(--shadow);
     transition: var(--transition);
     overflow: hidden;
     position: relative;
-    border: 1px solid rgba(0, 0, 0, 0.05);
+    border: none;
 }
 
 .feature-card.highlight {
@@ -172,7 +177,7 @@
     position: absolute;
     top: 20px;
     right: -30px;
-    background: var(--accent-color);
+    background: var(--nature-brown);
     color: white;
     padding: 0.3rem 2rem;
     transform: rotate(45deg);
@@ -181,14 +186,20 @@
     z-index: 1;
 }
 
+.feature-card:hover {
+    animation: float 3s ease-in-out infinite;
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+}
+
 .feature-content {
     padding: 2.5rem 2rem;
     text-align: center;
 }
 
 .feature-icon {
-    width: 80px;
-    height: 80px;
+    width: 90px;
+    height: 90px;
     background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
     color: white;
     border-radius: 50%;
@@ -196,20 +207,30 @@
     align-items: center;
     justify-content: center;
     margin: 0 auto 1.5rem;
-    font-size: 2rem;
-    box-shadow: 0 5px 15px rgba(67, 97, 238, 0.3);
+    font-size: 2.2rem;
+    box-shadow: 0 10px 25px rgba(58, 125, 68, 0.2);
+    transition: var(--transition);
+}
+
+.feature-card:hover .feature-icon {
+    transform: scale(1.1);
+    box-shadow: 0 15px 30px rgba(58, 125, 68, 0.3);
 }
 
 .feature-card h3 {
-    font-size: 1.5rem;
+    font-size: 1.6rem;
     margin-bottom: 1rem;
     color: var(--dark-color);
+    font-weight: 600;
+    font-family: 'Playfair Display', serif;
 }
 
 .feature-card p {
     color: var(--text-color);
     opacity: 0.8;
     margin-bottom: 1.5rem;
+    font-size: 1.05rem;
+    line-height: 1.7;
 }
 
 .feature-image {
@@ -235,6 +256,7 @@
     color: white;
     position: relative;
     overflow: hidden;
+    padding: 8rem 2rem;
 }
 
 .testimonials-section::before {
@@ -269,12 +291,25 @@
 
 .testimonial {
     background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(12px);
     padding: 3rem;
     border-radius: 15px;
     margin: 2rem 0;
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    position: relative;
     display: none;
+}
+
+.testimonial::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.01));
+    z-index: -1;
+    border-radius: 15px;
 }
 
 .testimonial.active {
@@ -283,17 +318,19 @@
 }
 
 .rating {
-    color: #ffc107;
+    color: #ffd700;
     margin-bottom: 1.5rem;
     font-size: 1.2rem;
 }
 
 .quote {
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     font-style: italic;
     margin-bottom: 2rem;
     line-height: 1.8;
     position: relative;
+    font-weight: 300;
+    letter-spacing: 0.3px;
 }
 
 .quote::before,
@@ -333,6 +370,7 @@
 .author-info h4 {
     font-size: 1.3rem;
     margin-bottom: 0.3rem;
+    font-family: 'Playfair Display', serif;
 }
 
 .author-info p {
@@ -348,14 +386,14 @@
 .gallery-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(2, 250px);
+    grid-template-rows: repeat(2, 300px);
     gap: 1.5rem;
     margin-top: 3rem;
 }
 
 .gallery-item {
     position: relative;
-    border-radius: 15px;
+    border-radius: 12px;
     overflow: hidden;
     cursor: pointer;
     transition: var(--transition);
@@ -373,7 +411,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.3);
+    background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 50%, transparent 100%);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -383,14 +421,14 @@
 
 .overlay i {
     color: white;
-    font-size: 2.5rem;
+    font-size: 3rem;
     transform: scale(0.8);
     transition: var(--transition);
 }
 
 .gallery-item:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
 }
 
 .gallery-item:hover .overlay {
@@ -398,7 +436,7 @@
 }
 
 .gallery-item:hover .overlay i {
-    transform: scale(1);
+    transform: scale(1.1);
 }
 
 .section-footer {
@@ -408,50 +446,105 @@
 
 /* CTA Section */
 .cta-section {
-    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('images/view5.jpg');
+    background: linear-gradient(rgba(40, 54, 24, 0.9), rgba(40, 54, 24, 0.9)), url('images/view5.jpg');
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
-    padding: 8rem 2rem;
+    padding: 10rem 2rem;
     text-align: center;
     color: white;
     position: relative;
 }
 
 .cta-content h2 {
-    font-size: 2.5rem;
+    font-size: 3rem;
     margin-bottom: 1.5rem;
     position: relative;
     z-index: 1;
+    font-weight: 700;
+    letter-spacing: -1px;
+    font-family: 'Playfair Display', serif;
 }
 
 .cta-content p {
-    font-size: 1.3rem;
-    margin-bottom: 2.5rem;
-    max-width: 700px;
+    font-size: 1.5rem;
+    margin-bottom: 3rem;
+    max-width: 800px;
     margin-left: auto;
     margin-right: auto;
     position: relative;
     z-index: 1;
     opacity: 0.9;
+    font-weight: 300;
+    line-height: 1.7;
 }
 
 .cta-button.white {
     background: white;
     color: var(--primary-color);
-    position: relative;
-    z-index: 1;
+    padding: 1.3rem 3rem;
+    font-size: 1.2rem;
+    box-shadow: 0 10px 30px rgba(255,255,255,0.2);
 }
 
 .cta-button.white:hover {
     background: var(--accent-color);
     color: white;
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(140, 179, 105, 0.5);
+}
+
+/* Button Styles */
+.hero-btns .cta-button {
+    position: relative;
+    padding: 1.2rem 2.5rem;
+    border-radius: 50px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    text-align: center;
+    font-size: 1.1rem;
+    backdrop-filter: blur(10px);
+    border: 2px solid transparent;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    text-shadow: none;
+    overflow: hidden;
+}
+
+.hero-btns .cta-button.primary {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.hero-btns .cta-button.primary:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(58, 125, 68, 0.4);
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+.hero-btns .cta-button.secondary {
+    background: rgba(255, 255, 255, 0.15);
+    color: white;
+    backdrop-filter: blur(15px);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.hero-btns .cta-button.secondary:hover {
+    background: rgba(255, 255, 255, 0.25);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(255, 255, 255, 0.2);
+}
+
+.hero-btns .cta-button i {
+    margin-right: 0.8rem;
+    font-size: 1rem;
 }
 
 /* Responsive Design */
 @media (max-width: 1024px) {
     .hero-content h1 {
-        font-size: 3rem;
+        font-size: 3.5rem;
     }
 
     .hero-content .subtitle {
@@ -459,13 +552,13 @@
     }
 
     .gallery-grid {
-        grid-template-rows: repeat(2, 200px);
+        grid-template-rows: repeat(2, 250px);
     }
 }
 
 @media (max-width: 768px) {
     .hero-content h1 {
-        font-size: 2.5rem;
+        font-size: 2.8rem;
     }
 
     .hero-content .subtitle {
@@ -500,13 +593,22 @@
     }
 
     .quote {
+        font-size: 1.1rem;
+    }
+
+    .hero-btns .cta-button {
+        padding: 1rem 2rem;
         font-size: 1rem;
+    }
+
+    .hero-btns .cta-button i {
+        margin-right: 0.6rem;
     }
 }
 
 @media (max-width: 480px) {
     .hero-content h1 {
-        font-size: 2rem;
+        font-size: 2.2rem;
     }
 
     .gallery-grid {
@@ -522,87 +624,7 @@
         flex-direction: column;
         text-align: center;
     }
-}
 
-.hero-btns .cta-button {
-    position: relative;
-    padding: 1.2rem 2.5rem;
-    border-radius: 50px;
-    font-weight: 600;
-    text-decoration: none;
-    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-    text-align: center;
-    font-size: 1.1rem;
-    backdrop-filter: blur(10px);
-    border: 2px solid transparent;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-    text-shadow: none;
-    overflow: hidden;
-}
-
-/* Primary button (Rezervă Acum) */
-.hero-btns .cta-button.primary {
-    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-    color: white;
-    border: 2px solid rgba(255, 255, 255, 0.3);
-}
-
-.hero-btns .cta-button.primary::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-    transition: left 0.5s;
-}
-
-.hero-btns .cta-button.primary:hover::before {
-    left: 100%;
-}
-
-.hero-btns .cta-button.primary:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 15px 35px rgba(67, 97, 238, 0.4);
-    border-color: rgba(255, 255, 255, 0.5);
-}
-
-/* Secondary button (Vezi Galeria / Află Mai Multe) */
-.hero-btns .cta-button.secondary {
-    background: rgba(255, 255, 255, 0.95);
-    color: var(--primary-color);
-    border: 2px solid rgba(255, 255, 255, 0.8);
-    backdrop-filter: blur(15px);
-}
-
-.hero-btns .cta-button.secondary:hover {
-    background: var(--accent-color);
-    color: white;
-    transform: translateY(-3px);
-    box-shadow: 0 15px 35px rgba(76, 201, 240, 0.4);
-    border-color: var(--accent-color);
-}
-
-/* Icon styling within buttons */
-.hero-btns .cta-button i {
-    margin-right: 0.8rem;
-    font-size: 1rem;
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-    .hero-btns .cta-button {
-        padding: 1rem 2rem;
-        font-size: 1rem;
-    }
-
-    .hero-btns .cta-button i {
-        margin-right: 0.6rem;
-    }
-}
-
-@media (max-width: 480px) {
     .hero-btns .cta-button {
         padding: 0.9rem 1.8rem;
         font-size: 0.95rem;

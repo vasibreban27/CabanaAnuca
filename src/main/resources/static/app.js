@@ -1,3 +1,4 @@
+
 // Configurări pentru aplicație
 const CONFIG = {
     API_BASE_URL: 'http://localhost:8081/api', // Ajustează conform backend-ului tău
@@ -495,285 +496,285 @@ document.addEventListener('DOMContentLoaded', function() {
                 submitBtn.disabled = false;
                 submitBtn.innerHTML = originalBtnText;
 
-                //hide messages after 5 seconds
+                //hide messages after 3 seconds
                 setTimeout(() => {
                     successMessage.style.display = 'none';
                     errorMessage.style.display = 'none';
-                }, 5000);
+                }, 3000);
             }
         });
     }
 
-document.addEventListener('DOMContentLoaded', function() {
-    // Team member photos - replace with actual images
-    const teamMembers = [
-        {
-            name: "Alexandra Pop",
-            photo: "https://randomuser.me/api/portraits/women/44.jpg"
-        },
-        {
-            name: "Marian Ionescu",
-            photo: "https://randomuser.me/api/portraits/men/32.jpg"
-        },
-        {
-            name: "Elena Dumitrescu",
-            photo: "https://randomuser.me/api/portraits/women/68.jpg"
-        }
-    ];
+    document.addEventListener('DOMContentLoaded', function() {
+        // Team member photos - replace with actual images
+        const teamMembers = [
+            {
+                name: "Alexandra Pop",
+                photo: "https://randomuser.me/api/portraits/women/44.jpg"
+            },
+            {
+                name: "Marian Ionescu",
+                photo: "https://randomuser.me/api/portraits/men/32.jpg"
+            },
+            {
+                name: "Elena Dumitrescu",
+                photo: "https://randomuser.me/api/portraits/women/68.jpg"
+            }
+        ];
 
-    const teamCards = document.querySelectorAll('.team-card');
+        const teamCards = document.querySelectorAll('.team-card');
 
-    teamCards.forEach((card, index) => {
-        const photoDiv = card.querySelector('.team-photo');
-        if (teamMembers[index]) {
-            // Replace the placeholder with actual image
-            photoDiv.innerHTML = '';
-            photoDiv.style.backgroundImage = `url(${teamMembers[index].photo})`;
-            photoDiv.style.backgroundSize = 'cover';
-            photoDiv.style.backgroundPosition = 'center';
-        }
+        teamCards.forEach((card, index) => {
+            const photoDiv = card.querySelector('.team-photo');
+            if (teamMembers[index]) {
+                // Replace the placeholder with actual image
+                photoDiv.innerHTML = '';
+                photoDiv.style.backgroundImage = `url(${teamMembers[index].photo})`;
+                photoDiv.style.backgroundSize = 'cover';
+                photoDiv.style.backgroundPosition = 'center';
+            }
 
-        // Add hover effect
-        card.addEventListener('mouseenter', () => {
-            card.style.transform = 'translateY(-10px)';
+            // Add hover effect
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-10px)';
+            });
+
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0)';
+            });
+        });
+    });
+
+
+    document.addEventListener('DOMContentLoaded', function() {
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+
+        mobileMenuBtn.addEventListener('click', function() {
+            navLinks.classList.toggle('active');
+            this.querySelector('i').classList.toggle('fa-times');
+            this.querySelector('i').classList.toggle('fa-bars');
         });
 
-        card.addEventListener('mouseleave', () => {
-            card.style.transform = 'translateY(0)';
+        // Sticky Header
+        const header = document.querySelector('.sticky-header');
+
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
         });
-    });
-});
 
+        // Hero Slider
+        const slides = document.querySelectorAll('.slide');
+        let currentSlide = 0;
 
-document.addEventListener('DOMContentLoaded', function() {
-    // Mobile Menu Toggle
-    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-    const navLinks = document.querySelector('.nav-links');
-
-    mobileMenuBtn.addEventListener('click', function() {
-        navLinks.classList.toggle('active');
-        this.querySelector('i').classList.toggle('fa-times');
-        this.querySelector('i').classList.toggle('fa-bars');
-    });
-
-    // Sticky Header
-    const header = document.querySelector('.sticky-header');
-
-    window.addEventListener('scroll', function() {
-        if (window.scrollY > 100) {
-            header.classList.add('scrolled');
-        } else {
-            header.classList.remove('scrolled');
+        function showSlide(n) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            currentSlide = (n + slides.length) % slides.length;
+            slides[currentSlide].classList.add('active');
         }
-    });
 
-    // Hero Slider
-    const slides = document.querySelectorAll('.slide');
-    let currentSlide = 0;
+        // Auto slide change every 5 seconds
+        setInterval(() => {
+            showSlide(currentSlide + 1);
+        }, 5000);
 
-    function showSlide(n) {
-        slides.forEach(slide => slide.classList.remove('active'));
-        currentSlide = (n + slides.length) % slides.length;
-        slides[currentSlide].classList.add('active');
-    }
+        // Testimonials Slider
+        const testimonials = document.querySelectorAll('.testimonial');
+        let currentTestimonial = 0;
 
-    // Auto slide change every 5 seconds
-    setInterval(() => {
-        showSlide(currentSlide + 1);
-    }, 5000);
+        function showTestimonial(n) {
+            testimonials.forEach(testimonial => testimonial.classList.remove('active'));
+            currentTestimonial = (n + testimonials.length) % testimonials.length;
+            testimonials[currentTestimonial].classList.add('active');
+        }
 
-    // Testimonials Slider
-    const testimonials = document.querySelectorAll('.testimonial');
-    let currentTestimonial = 0;
+        // Auto testimonial change every 7 seconds
+        setInterval(() => {
+            showTestimonial(currentTestimonial + 1);
+        }, 7000);
 
-    function showTestimonial(n) {
-        testimonials.forEach(testimonial => testimonial.classList.remove('active'));
-        currentTestimonial = (n + testimonials.length) % testimonials.length;
-        testimonials[currentTestimonial].classList.add('active');
-    }
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
 
-    // Auto testimonial change every 7 seconds
-    setInterval(() => {
-        showTestimonial(currentTestimonial + 1);
-    }, 7000);
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
 
-    // Smooth scrolling for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-            e.preventDefault();
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
 
-            const targetId = this.getAttribute('href');
-            if (targetId === '#') return;
-
-            const targetElement = document.querySelector(targetId);
-            if (targetElement) {
-                window.scrollTo({
-                    top: targetElement.offsetTop - 80,
-                    behavior: 'smooth'
-                });
-
-                // Close mobile menu if open
-                if (navLinks.classList.contains('active')) {
-                    navLinks.classList.remove('active');
-                    mobileMenuBtn.querySelector('i').classList.remove('fa-times');
-                    mobileMenuBtn.querySelector('i').classList.add('fa-bars');
+                    // Close mobile menu if open
+                    if (navLinks.classList.contains('active')) {
+                        navLinks.classList.remove('active');
+                        mobileMenuBtn.querySelector('i').classList.remove('fa-times');
+                        mobileMenuBtn.querySelector('i').classList.add('fa-bars');
+                    }
                 }
-            }
+            });
         });
-    });
 
-    // Gallery item click handler (would open a lightbox in a real implementation)
-    document.querySelectorAll('.gallery-item').forEach(item => {
-        item.addEventListener('click', function() {
-            // In a real implementation, this would open a lightbox with the full image
-            console.log('Opening gallery image:', this.style.backgroundImage);
+        // Gallery item click handler (would open a lightbox in a real implementation)
+        document.querySelectorAll('.gallery-item').forEach(item => {
+            item.addEventListener('click', function() {
+                // In a real implementation, this would open a lightbox with the full image
+                console.log('Opening gallery image:', this.style.backgroundImage);
+            });
         });
     });
-});
 
 
 // Functie pentru deschiderea albumului
-function openAlbum(albumId) {
-    // Ascunde toate albumele
-    const albums = document.querySelectorAll('.album');
-    albums.forEach(album => {
-        album.classList.remove('active');
-    });
+    function openAlbum(albumId) {
+        // Ascunde toate albumele
+        const albums = document.querySelectorAll('.album');
+        albums.forEach(album => {
+            album.classList.remove('active');
+        });
 
-    // Arata albumul selectat
-    document.getElementById(albumId + '-album').classList.add('active');
+        // Arata albumul selectat
+        document.getElementById(albumId + '-album').classList.add('active');
 
-    // Opțional: blochează scroll-ul pe pagina principală
-    document.body.style.overflow = 'hidden';
-}
+        // Opțional: blochează scroll-ul pe pagina principală
+        document.body.style.overflow = 'hidden';
+    }
 
 // Functie pentru inchiderea albumului
-function closeAlbum() {
-    // Ascunde toate albumele
-    const albums = document.querySelectorAll('.album');
-    albums.forEach(album => {
-        album.classList.remove('active');
-    });
+    function closeAlbum() {
+        // Ascunde toate albumele
+        const albums = document.querySelectorAll('.album');
+        albums.forEach(album => {
+            album.classList.remove('active');
+        });
 
-    // Reactivează scroll-ul pe pagina principală
-    document.body.style.overflow = 'auto';
-}
+        // Reactivează scroll-ul pe pagina principală
+        document.body.style.overflow = 'auto';
+    }
 
 // Închide albumul când se apasă în afara conținutului
-window.onclick = function(event) {
-    const albums = document.querySelectorAll('.album');
-    albums.forEach(album => {
-        if (event.target === album) {
-            closeAlbum();
-        }
-    });
-}
+    window.onclick = function(event) {
+        const albums = document.querySelectorAll('.album');
+        albums.forEach(album => {
+            if (event.target === album) {
+                closeAlbum();
+            }
+        });
+    }
 
-function selectCabin(cabinType) {
-    const select = document.getElementById('cabinType');
-    select.value = cabinType;
+    function selectCabin(cabinType) {
+        const select = document.getElementById('cabinType');
+        select.value = cabinType;
 
-    // Update visual selection
-    document.querySelectorAll('.pricing-card').forEach(card => {
-        card.classList.remove('selected');
-    });
-    document.querySelector(`[data-cabin-type="${cabinType}"]`).classList.add('selected');
+        // Update visual selection
+        document.querySelectorAll('.pricing-card').forEach(card => {
+            card.classList.remove('selected');
+        });
+        document.querySelector(`[data-cabin-type="${cabinType}"]`).classList.add('selected');
 
-    // Scroll to form
-    document.getElementById('reservation-form').scrollIntoView({
-        behavior: 'smooth',
-        block: 'start'
-    });
+        // Scroll to form
+        document.getElementById('reservation-form').scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+        });
 
-    // Update price if dates are selected
-    updatePriceAndAvailability();
-}
+        // Update price if dates are selected
+        updatePriceAndAvailability();
+    }
 
 // Price calculation and availability check
-function updatePriceAndAvailability() {
-    const checkIn = document.getElementById('checkIn').value;
-    const checkOut = document.getElementById('checkOut').value;
-    const cabinType = document.getElementById('cabinType').value;
-    const nightsDisplay = document.getElementById('nights-display');
-    const priceDisplay = document.getElementById('price-display');
-    const availabilityMessage = document.getElementById('availability-message');
+    function updatePriceAndAvailability() {
+        const checkIn = document.getElementById('checkIn').value;
+        const checkOut = document.getElementById('checkOut').value;
+        const cabinType = document.getElementById('cabinType').value;
+        const nightsDisplay = document.getElementById('nights-display');
+        const priceDisplay = document.getElementById('price-display');
+        const availabilityMessage = document.getElementById('availability-message');
 
-    if (!checkIn || !checkOut || !cabinType) {
-        nightsDisplay.value = '';
-        priceDisplay.value = '';
-        availabilityMessage.innerHTML = '';
-        return;
-    }
+        if (!checkIn || !checkOut || !cabinType) {
+            nightsDisplay.value = '';
+            priceDisplay.value = '';
+            availabilityMessage.innerHTML = '';
+            return;
+        }
 
-    // Calculate nights
-    const checkInDate = new Date(checkIn);
-    const checkOutDate = new Date(checkOut);
-    const nights = Math.ceil((checkOutDate - checkInDate) / (1000 * 60 * 60 * 24));
+        // Calculate nights
+        const checkInDate = new Date(checkIn);
+        const checkOutDate = new Date(checkOut);
+        const nights = Math.ceil((checkOutDate - checkInDate) / (1000 * 60 * 60 * 24));
 
-    if (nights <= 0) {
-        nightsDisplay.value = '';
-        priceDisplay.value = '';
-        availabilityMessage.innerHTML = '<div class="error-message">Data de check-out trebuie să fie după data de check-in</div>';
-        return;
-    }
+        if (nights <= 0) {
+            nightsDisplay.value = '';
+            priceDisplay.value = '';
+            availabilityMessage.innerHTML = '<div class="error-message">Data de check-out trebuie să fie după data de check-in</div>';
+            return;
+        }
 
-    nightsDisplay.value = nights + (nights === 1 ? ' noapte' : ' nopți');
+        nightsDisplay.value = nights + (nights === 1 ? ' noapte' : ' nopți');
 
-    // Check availability and calculate price
-    const params = new URLSearchParams({
-        checkIn: checkIn,
-        checkOut: checkOut,
-        cabinType: cabinType
-    });
-
-    // Check availability
-    fetch(`/api/reservations/availability?${params}`)
-        .then(response => response.json())
-        .then(available => {
-            if (available) {
-                availabilityMessage.innerHTML = '<div class="success-message"><i class="fas fa-check-circle"></i> Disponibil pentru perioada selectată</div>';
-
-                // Get price
-                fetch(`/api/reservations/price?${params}`)
-                    .then(response => response.json())
-                    .then(price => {
-                        priceDisplay.value = price + ' LEI';
-                    })
-                    .catch(error => {
-                        console.error('Error calculating price:', error);
-                        priceDisplay.value = 'Eroare la calcularea prețului';
-                    });
-            } else {
-                availabilityMessage.innerHTML = '<div class="error-message"><i class="fas fa-exclamation-triangle"></i> Nu este disponibil pentru perioada selectată</div>';
-                priceDisplay.value = 'Indisponibil';
-            }
-        })
-        .catch(error => {
-            console.error('Error checking availability:', error);
-            availabilityMessage.innerHTML = '<div class="error-message">Eroare la verificarea disponibilității</div>';
+        // Check availability and calculate price
+        const params = new URLSearchParams({
+            checkIn: checkIn,
+            checkOut: checkOut,
+            cabinType: cabinType
         });
-}
+
+        // Check availability
+        fetch(`/api/reservations/availability?${params}`)
+            .then(response => response.json())
+            .then(available => {
+                if (available) {
+                    availabilityMessage.innerHTML = '<div class="success-message"><i class="fas fa-check-circle"></i> Disponibil pentru perioada selectată</div>';
+
+                    // Get price
+                    fetch(`/api/reservations/price?${params}`)
+                        .then(response => response.json())
+                        .then(price => {
+                            priceDisplay.value = price + ' LEI';
+                        })
+                        .catch(error => {
+                            console.error('Error calculating price:', error);
+                            priceDisplay.value = 'Eroare la calcularea prețului';
+                        });
+                } else {
+                    availabilityMessage.innerHTML = '<div class="error-message"><i class="fas fa-exclamation-triangle"></i> Nu este disponibil pentru perioada selectată</div>';
+                    priceDisplay.value = 'Indisponibil';
+                }
+            })
+            .catch(error => {
+                console.error('Error checking availability:', error);
+                availabilityMessage.innerHTML = '<div class="error-message">Eroare la verificarea disponibilității</div>';
+            });
+    }
 
 // Set minimum date to today
-document.addEventListener('DOMContentLoaded', function() {
-    const today = new Date().toISOString().split('T')[0];
-    document.getElementById('checkIn').setAttribute('min', today);
-    document.getElementById('checkOut').setAttribute('min', today);
-});
+    document.addEventListener('DOMContentLoaded', function() {
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('checkIn').setAttribute('min', today);
+        document.getElementById('checkOut').setAttribute('min', today);
+    });
 
 // Event listeners
-document.getElementById('checkIn').addEventListener('change', function() {
-    // Set minimum checkout date to the day after checkin
-    const checkInDate = new Date(this.value);
-    checkInDate.setDate(checkInDate.getDate() + 1);
-    const minCheckOut = checkInDate.toISOString().split('T')[0];
-    document.getElementById('checkOut').setAttribute('min', minCheckOut);
+    document.getElementById('checkIn').addEventListener('change', function() {
+        // Set minimum checkout date to the day after checkin
+        const checkInDate = new Date(this.value);
+        checkInDate.setDate(checkInDate.getDate() + 1);
+        const minCheckOut = checkInDate.toISOString().split('T')[0];
+        document.getElementById('checkOut').setAttribute('min', minCheckOut);
 
-    updatePriceAndAvailability();
-});
+        updatePriceAndAvailability();
+    });
 
-document.getElementById('checkOut').addEventListener('change', updatePriceAndAvailability);
-document.getElementById('cabinType').addEventListener('change', updatePriceAndAvailability);
+    document.getElementById('checkOut').addEventListener('change', updatePriceAndAvailability);
+    document.getElementById('cabinType').addEventListener('change', updatePriceAndAvailability);
 
 // // Form submission
 // document.getElementById('reservation-form').addEventListener('submit', function(e) {
@@ -864,90 +865,157 @@ document.getElementById('cabinType').addEventListener('change', updatePriceAndAv
 // });
 
 
-document.getElementById("pay-button").addEventListener("click", async function (e) {
-    e.preventDefault();
+    document.getElementById("pay-button").addEventListener("click", async function (e) {
+        e.preventDefault();
 
-    // Validează formularul
-    const requiredFields = document.querySelectorAll('#reservation-form input[required], #reservation-form select[required]');
-    let isFormValid = true;
+        // Validează formularul
+        const requiredFields = document.querySelectorAll('#reservation-form input[required], #reservation-form select[required]');
+        let isFormValid = true;
 
-    requiredFields.forEach(field => {
-        if (!validateField(field)) {
-            isFormValid = false;
+        requiredFields.forEach(field => {
+            if (!validateField(field)) {
+                isFormValid = false;
+            }
+        });
+
+        if (!isFormValid) {
+            showResponse('Vă rugăm să corectați erorile din formular înainte de plată.', 'error');
+            return;
         }
+
+        // Colectează datele din formular
+        const formData = new FormData(document.getElementById('reservation-form'));
+        const reservationData = {
+            name: formData.get('name'),
+            email: formData.get('email'),
+            checkIn: formData.get('checkIn'),
+            checkOut: formData.get('checkOut'),
+            cabinType: formData.get('cabinType'),
+            paymentMethod: "CARD" // Plată online
+        };
+
+        // Afișează loading state
+        const payBtn = document.getElementById("pay-button");
+        const originalBtnText = payBtn.innerHTML;
+        payBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Se procesează...';
+        payBtn.disabled = true;
+
+        try {
+            // 1. Salvează rezervarea în baza de date
+            const reservationResponse = await fetch(`${CONFIG.API_BASE_URL}/reservations`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify(reservationData)
+            });
+
+            if (!reservationResponse.ok) {
+                const errorText = await reservationResponse.text();
+                throw new Error(`Eroare la crearea rezervării: ${errorText}`);
+            }
+
+            const reservation = await reservationResponse.json();
+
+            // 2. Inițiază plata cu Stripe
+            const stripe = Stripe("pk_test_51RnEYgQIGXPdxi2IlzbuVWo7ZxxCJT63vwRlm92LBAKg3fYd0oaYOCxmQvzXJk0d5lT2HOFBYRiy9FEZ54knFstk00xjkEkz2L");
+
+            const paymentResponse = await fetch(`${CONFIG.API_BASE_URL}/payment/create-checkout-session`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    amount: parseFloat(document.getElementById("price-display").value.replace(/[^\d.]/g, '')),
+                    cabinType: reservationData.cabinType,
+                    reservationId: reservation.id,
+                    paymentMethod: "CARD"
+                })
+            });
+
+            const session = await paymentResponse.json();
+            const result = await stripe.redirectToCheckout({
+                sessionId: session.id
+            });
+
+            if (result.error) {
+                throw new Error(result.error.message);
+            }
+
+        } catch (error) {
+            console.error('Payment error:', error);
+            showResponse(`Eroare la procesarea plății: ${error.message}`, 'error');
+        } finally {
+            // Restaurează butonul
+            payBtn.innerHTML = originalBtnText;
+            payBtn.disabled = false;
+        }
+    });})
+// Observer pentru animații la scroll
+const animateOnScroll = () => {
+    const sections = document.querySelectorAll('section');
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, {
+        threshold: 0.1
     });
 
-    if (!isFormValid) {
-        showResponse('Vă rugăm să corectați erorile din formular înainte de plată.', 'error');
-        return;
+    sections.forEach(section => {
+        observer.observe(section);
+    });
+};
+
+// Inițializare slider hero
+const initHeroSlider = () => {
+    const slides = document.querySelectorAll('.slide');
+    let currentSlide = 0;
+
+    if (slides.length > 0) {
+        slides[currentSlide].classList.add('active');
+
+        setInterval(() => {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (currentSlide + 1) % slides.length;
+            slides[currentSlide].classList.add('active');
+        }, 5000);
     }
+};
 
-    // Colectează datele din formular
-    const formData = new FormData(document.getElementById('reservation-form'));
-    const reservationData = {
-        name: formData.get('name'),
-        email: formData.get('email'),
-        checkIn: formData.get('checkIn'),
-        checkOut: formData.get('checkOut'),
-        cabinType: formData.get('cabinType'),
-        paymentMethod: "CARD" // Plată online
-    };
+// Inițializare testimonial slider
+const initTestimonialSlider = () => {
+    const testimonials = document.querySelectorAll('.testimonial');
+    let currentTestimonial = 0;
 
-    // Afișează loading state
-    const payBtn = document.getElementById("pay-button");
-    const originalBtnText = payBtn.innerHTML;
-    payBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Se procesează...';
-    payBtn.disabled = true;
+    if (testimonials.length > 0) {
+        testimonials[currentTestimonial].classList.add('active');
 
-    try {
-        // 1. Salvează rezervarea în baza de date
-        const reservationResponse = await fetch(`${CONFIG.API_BASE_URL}/reservations`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-            },
-            body: JSON.stringify(reservationData)
-        });
-
-        if (!reservationResponse.ok) {
-            const errorText = await reservationResponse.text();
-            throw new Error(`Eroare la crearea rezervării: ${errorText}`);
-        }
-
-        const reservation = await reservationResponse.json();
-
-        // 2. Inițiază plata cu Stripe
-        const stripe = Stripe("pk_test_51RnEYgQIGXPdxi2IlzbuVWo7ZxxCJT63vwRlm92LBAKg3fYd0oaYOCxmQvzXJk0d5lT2HOFBYRiy9FEZ54knFstk00xjkEkz2L");
-
-        const paymentResponse = await fetch(`${CONFIG.API_BASE_URL}/payment/create-checkout-session`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                amount: parseFloat(document.getElementById("price-display").value.replace(/[^\d.]/g, '')),
-                cabinType: reservationData.cabinType,
-                reservationId: reservation.id,
-                paymentMethod: "CARD"
-            })
-        });
-
-        const session = await paymentResponse.json();
-        const result = await stripe.redirectToCheckout({
-            sessionId: session.id
-        });
-
-        if (result.error) {
-            throw new Error(result.error.message);
-        }
-
-    } catch (error) {
-        console.error('Payment error:', error);
-        showResponse(`Eroare la procesarea plății: ${error.message}`, 'error');
-    } finally {
-        // Restaurează butonul
-        payBtn.innerHTML = originalBtnText;
-        payBtn.disabled = false;
+        setInterval(() => {
+            testimonials[currentTestimonial].classList.remove('active');
+            currentTestimonial = (currentTestimonial + 1) % testimonials.length;
+            testimonials[currentTestimonial].classList.add('active');
+        }, 8000);
     }
-});}
+};
+
+// Inițializare la încărcarea paginii
+document.addEventListener('DOMContentLoaded', () => {
+    animateOnScroll();
+    initHeroSlider();
+    initTestimonialSlider();
+
+    // Smooth scroll pentru link-uri
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            document.querySelector(this.getAttribute('href')).scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+    });
+});

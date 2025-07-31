@@ -1,6 +1,5 @@
 package com.cabana.bookingapp;
 
-import com.stripe.model.PaymentMethod;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -129,8 +128,8 @@ public class Reservation {
         this.paid = paid;
     }
 
-    public PaymentMethod getPaymentMethod() {
-        return paymentMethod;
+    public String getPaymentMethod() {
+        return paymentMethod.toString();
     }
 
     public void setPaymentMethod(PaymentMethod paymentMethod) {

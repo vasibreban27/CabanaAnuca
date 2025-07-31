@@ -33,7 +33,7 @@ public class EmailService {
         mailMessage.setSubject("Confirmare plată - Cabanele A-nuc-A");
 
         mailMessage.setText("Salut, " + name + "!\n\n" +
-                "Plata pentru rezervarea ta a fost confirmată cu succes:\n\n" +
+                "Plata pentru rezervarea ta a fost confirmată cu succes!\n\n" +
                 "Detalii rezervare:\n" +
                 "Check-in: " + checkIn + "\n" +
                 "Check-out: " + checkOut + "\n" +
