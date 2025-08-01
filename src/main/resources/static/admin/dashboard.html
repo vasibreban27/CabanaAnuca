@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Cabanele A-nuc-A</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
+</head>
+<body>
+<div class="admin-container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <h2><i class="fas fa-home"></i> A-nuc-A</h2>
+            <p>Admin Panel</p>
+        </div>
+
+        <ul class="sidebar-menu">
+            <li><a href="dashboard.html" class="active"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+            <li><a href="reservations.html"><i class="fas fa-calendar-check"></i> Rezervări</a></li>
+            <li><a href="settings.html"><i class="fas fa-cog"></i> Setări</a></li>
+            <li><a href="#"><i class="fas fa-sign-out-alt"></i> Deconectare</a></li>
+        </ul>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="header">
+            <h1>Dashboard</h1>
+            <div class="user-info">
+                <span>Bun venit, Admin</span>
+                <img src="https://via.placeholder.com/40" alt="User" style="border-radius: 50%; margin-left: 10px;">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="card">
+                <h2><i class="fas fa-chart-line"></i> Statistici</h2>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h3>25</h3>
+                        <p>Rezervări active</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>1.250€</h3>
+                        <p>Venit lunar</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>4.8</h3>
+                        <p>Rating mediu</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2><i class="fas fa-bell"></i> Notificări recente</h2>
+                <ul class="notifications">
+                    <li>
+                        <i class="fas fa-calendar-plus"></i>
+                        <span>Nouă rezervare de la Maria Popescu</span>
+                        <small>acum 2 ore</small>
+                    </li>
+                    <li>
+                        <i class="fas fa-star"></i>
+                        <span>Recenzie nouă de la Ion Ionescu</span>
+                        <small>acum 1 zi</small>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </main>
+</div>
+</body>
+</html>
