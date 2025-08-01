@@ -1,6 +1,5 @@
-/* index.css - Styles specific to index.html */
+/* index.css */
 
-/* Hero Section */
 .hero {
     position: relative;
     height: 100vh;
@@ -130,7 +129,6 @@
     }
 }
 
-/* Features Section */
 .features-section {
     background-color: #f9fafc;
     position: relative;
@@ -195,6 +193,9 @@
 .feature-content {
     padding: 2.5rem 2rem;
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .feature-icon {
@@ -223,6 +224,9 @@
     color: var(--dark-color);
     font-weight: 600;
     font-family: 'Playfair Display', serif;
+    text-align: center;
+    padding: 0 1rem;
+    position: relative;
 }
 
 .feature-card p {
@@ -250,7 +254,19 @@
     background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
 }
 
-/* Testimonials Section */
+.section-subtitle {
+    text-align: center;
+    font-size: 1.4rem;
+    color: var(--text-color);
+    max-width: 800px;
+    margin: 0 auto 2rem;
+    font-weight: 400;
+    line-height: 1.6;
+    opacity: 0.9;
+    position: relative;
+    padding: 0 1rem;
+}
+
 .testimonials-section {
     background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
     color: white;
@@ -378,7 +394,6 @@
     font-size: 0.9rem;
 }
 
-/* Gallery Preview Section */
 .gallery-section {
     background-color: white;
 }
@@ -444,7 +459,6 @@
     margin-top: 3rem;
 }
 
-/* CTA Section */
 .cta-section {
     background: linear-gradient(rgba(40, 54, 24, 0.9), rgba(40, 54, 24, 0.9)), url('images/view5.jpg');
     background-size: cover;
@@ -494,7 +508,6 @@
     box-shadow: 0 15px 40px rgba(140, 179, 105, 0.5);
 }
 
-/* Button Styles */
 .hero-btns .cta-button {
     position: relative;
     padding: 1.2rem 2.5rem;
@@ -541,7 +554,6 @@
     font-size: 1rem;
 }
 
-/* Responsive Design */
 @media (max-width: 1024px) {
     .hero-content h1 {
         font-size: 3.5rem;

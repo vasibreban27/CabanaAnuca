@@ -1,4 +1,4 @@
-/* style.css - Base styles shared across all pages */
+/* style.css */
 :root {
     --primary-color: #3a7d44; /* Forest green */
     --secondary-color: #5b8c5a; /* Sage green */
@@ -29,12 +29,12 @@ body {
     background-color: #f5f7fa;
 }
 
-/* Header & Navigation */
+
 header {
     position: fixed;
     top: 0;
     width: 100%;
-    background: rgba(40, 54, 24, 0.95); /* Dark olive with transparency */
+    background: rgba(40, 54, 24, 0.95);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     z-index: 1000;
@@ -103,7 +103,6 @@ nav {
     color: var(--accent-color);
 }
 
-/* Sections */
 section {
     padding: 8rem 2rem;
     max-width: 1200px;
@@ -141,7 +140,6 @@ section.visible {
     border-radius: 2px;
 }
 
-/* Buttons */
 .cta-button {
     display: inline-flex;
     align-items: center;
@@ -164,7 +162,6 @@ section.visible {
     box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
 }
 
-/* Footer */
 footer {
     background: var(--dark-color);
     color: var(--light-color);
@@ -237,7 +234,6 @@ footer {
     font-size: 0.9rem;
 }
 
-/* Animations */
 @keyframes fadeInUp {
     from {
         opacity: 0;
@@ -291,7 +287,6 @@ footer {
     }
 }
 
-/* Smooth scrolling */
 html {
     scroll-behavior: smooth;
 }

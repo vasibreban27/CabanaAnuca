@@ -28,18 +28,17 @@ public class PaymentController {
     @PostMapping("/create-checkout-session")
     public Map<String, String> createCheckoutSession(@RequestBody PaymentRequest paymentRequest) throws StripeException {
 
-        // Build the session params with metadata
+        //build the session params with metadata
         SessionCreateParams.Builder paramsBuilder = SessionCreateParams.builder()
                 .setMode(SessionCreateParams.Mode.PAYMENT)
                 .setSuccessUrl("http://localhost:8081/success.html?session_id={CHECKOUT_SESSION_ID}")
                 .setCancelUrl("http://localhost:8081/cancel.html");
 
-        // Add metadata for reservation ID
         if (paymentRequest.getReservationId() != null) {
             paramsBuilder.putMetadata("reservation_id", paymentRequest.getReservationId().toString());
         }
 
-        // Create line item
+        //create line item
         SessionCreateParams.LineItem lineItem = SessionCreateParams.LineItem.builder()
                 .setQuantity(1L)
                 .setPriceData(
@@ -93,7 +92,7 @@ public class PaymentController {
             System.out.println("Session metadata: " + session.getMetadata());
 
             if ("paid".equals(session.getPaymentStatus())) {
-                // Extract reservation ID from metadata
+                //extract reservation ID from metadata
                 String reservationIdStr = session.getMetadata().get("reservation_id");
                 System.out.println("Reservation ID from metadata: " + reservationIdStr);
 
@@ -103,7 +102,7 @@ public class PaymentController {
 
                         return reservationRepository.findById(reservationId)
                                 .map(reservation -> {
-                                    // Mark reservation as paid
+                                    //mark reservation as paid
                                     reservation.setPaid(true);
                                     reservationRepository.save(reservation);
 

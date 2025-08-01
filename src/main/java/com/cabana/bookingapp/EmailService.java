@@ -1,9 +1,14 @@
 package com.cabana.bookingapp;
 
+import jakarta.mail.MessagingException;
+import jakarta.mail.internet.InternetAddress;
+import jakarta.mail.internet.MimeMessage;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
+import java.io.UnsupportedEncodingException;
 import java.time.LocalDate;
 @Service
 public class EmailService {
@@ -46,14 +51,24 @@ public class EmailService {
         mailSender.send(mailMessage);
     }
 
-    public void sendContactEmail(ContactRequest contactRequest){
-        SimpleMailMessage mailMessage = new SimpleMailMessage();
-        mailMessage.setTo("cabaneleanuca@gmail.com");
-        mailMessage.setFrom(contactRequest.getEmail());
-        mailMessage.setSubject("[Contact Form] " + contactRequest.getSubject());
-        mailMessage.setText("Nume: " + contactRequest.getName() + "\n" +
-                "Email: " + contactRequest.getEmail() + "\n\n" +
-                "Mesaj:\n" + contactRequest.getMessage());
-        mailSender.send(mailMessage);
+    public void sendContactEmail(ContactRequest contactRequest) throws MessagingException, UnsupportedEncodingException {
+        MimeMessage message = mailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message);
+
+        helper.setTo("cabaneleanuca@gmail.com");
+
+        helper.setReplyTo(contactRequest.getEmail());
+        helper.setFrom(new InternetAddress("noreply@cabaneleanuca.ro", "Cabanele A-nuc-A")); // Adresă generică a afacerii
+
+        helper.setSubject("Mesaj nou: " + contactRequest.getSubject());
+
+        String text = String.format(
+                "Nume: %s\nEmail: %s\n\nMesaj:\n%s",
+                contactRequest.getName(),
+                contactRequest.getEmail(),
+                contactRequest.getMessage()
+        );
+        helper.setText(text);
+        mailSender.send(message);
     }
 }

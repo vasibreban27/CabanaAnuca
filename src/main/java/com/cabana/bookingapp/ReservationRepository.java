@@ -6,11 +6,11 @@ import java.time.LocalDate;
 import java.util.List;
 
 public interface ReservationRepository extends JpaRepository<Reservation, Integer> {
-    // Original method for backward compatibility
+    //original method for backward compatibility
     List<Reservation> findByCheckInLessThanEqualAndCheckOutGreaterThanEqual(
             LocalDate checkOut, LocalDate checkIn);
 
-    // New method that includes cabin type
+    //new method that includes cabin type
     List<Reservation> findByCabinTypeAndCheckInLessThanEqualAndCheckOutGreaterThanEqual(
             Reservation.CabinType cabinType, LocalDate checkOut, LocalDate checkIn);
 }

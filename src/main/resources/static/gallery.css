@@ -1,4 +1,4 @@
-/* gallery.css - Styles specific to gallery.html */
+/* gallery.css */
 .gallery {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -41,7 +41,7 @@
     margin-bottom: 1rem;
 }
 
-/* Modern gradient backgrounds for gallery */
+
 .gallery-item:nth-child(1) .gallery-placeholder { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
 .gallery-item:nth-child(2) .gallery-placeholder { background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); }
 .gallery-item:nth-child(3) .gallery-placeholder { background: linear-gradient(135deg, #fc4a1a 0%, #f7b733 100%); }
@@ -55,7 +55,6 @@
     }
 }
 
-/* Stiluri pentru galeriile ascunse */
 .album {
     display: none;
     position: fixed;
@@ -114,7 +113,6 @@
     transform: scale(1.02);
 }
 
-/* Stiluri pentru galeria principala */
 .gallery {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));

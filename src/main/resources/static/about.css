@@ -1,4 +1,4 @@
-/* about.css - Styles specific to about.html */
+/*about.css*/
 .about-content {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -65,7 +65,7 @@
     border-radius: 15px;
 }
 
-/* Team Section */
+
 .team-members {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));

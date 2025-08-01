@@ -1,4 +1,4 @@
-/* reservation.css - Styles specific to reservation.html */
+/* reservation.css */
 .reservation-section {
     background: linear-gradient(135deg, var(--dark-color) 0%, #16213e 100%);
     color: var(--light-color);
@@ -108,7 +108,6 @@
     transform: none;
 }
 
-/* Pricing Section */
 .pricing-row {
     display: flex;
     flex-wrap: wrap;
@@ -190,7 +189,6 @@
     transform: none;
 }
 
-/* Stiluri pentru dropdown-ul de selecție a cabinei */
 #cabinType {
     appearance: none;
     -webkit-appearance: none;
@@ -208,18 +206,15 @@
     padding: 1rem;
 }
 
-/* Stiluri pentru hover pe opțiuni */
 #cabinType option:hover {
     background-color: var(--accent-color);
     color: var(--dark-color);
 }
 
-/* Stiluri pentru focus pe dropdown */
 #cabinType:focus {
     background-color: rgba(255, 255, 255, 0.15);
 }
 
-/* Stiluri pentru când dropdown-ul este deschis */
 #cabinType:active, #cabinType:focus {
     color: white;
 }

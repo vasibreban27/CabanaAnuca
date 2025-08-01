@@ -1,4 +1,4 @@
-/* contact.css - Styles specific to contact.html */
+/* contact.css */
 .contact-container {
     max-width: 1200px;
     margin: 0 auto;
@@ -61,7 +61,7 @@
     resize: vertical;
 }
 
-/* FAQ Section */
+/* faq Section */
 .faq-container {
     max-width: 800px;
     margin: 0 auto;
@@ -125,14 +125,14 @@
     }
 }
 
-/* Contact Section Styling */
+
 .contact-section {
     margin-top: 6rem;
     padding: 4rem 0;
     background-color: #f8fafc;
 }
 
-/* Form Styling */
+
 .form-row {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -192,7 +192,7 @@
     box-shadow: 0 5px 15px rgba(67, 97, 238, 0.3);
 }
 
-/* Response Messages */
+
 .response-message {
     padding: 1rem;
     border-radius: 8px;
@@ -213,7 +213,7 @@
     border: 1px solid rgba(255, 51, 51, 0.3);
 }
 
-/* FAQ Section Styling */
+
 .faq-section {
     background-color: #fff;
     padding: 4rem 2rem;
@@ -222,14 +222,12 @@
     box-shadow: 0 5px 15px rgba(0,0,0,0.05);
 }
 
-/* Map Styling */
 .contact-map iframe {
     width: 100%;
     height: 100%;
     border: none;
 }
 
-/* Responsive Adjustments */
 @media (max-width: 768px) {
     .form-row {
         grid-template-columns: 1fr;
@@ -245,7 +243,7 @@
     }
 }
 
-/* Stiluri pentru noile secțiuni */
+
 .info-section {
     background-color: #fff;
     padding: 4rem 2rem;
@@ -265,7 +263,6 @@
     margin-bottom: 1rem;
 }
 
-/* Adaugă padding suplimentar pentru a compensa header-ul fix */
 section {
     scroll-margin-top: 100px;
 }
