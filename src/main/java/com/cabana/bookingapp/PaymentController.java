@@ -77,7 +77,7 @@ public class PaymentController {
                             reservation.getCheckIn(),
                             reservation.getCheckOut(),
                             reservation.isPaid(),
-                            reservation.getPaymentMethod()
+                            reservation.getPaymentMethod().toString()
                     );
                     return ResponseEntity.ok().build();
                 })
@@ -116,7 +116,7 @@ public class PaymentController {
                                                 reservation.getCheckIn(),
                                                 reservation.getCheckOut(),
                                                 reservation.getTotalPrice(),
-                                                reservation.getPaymentMethod()
+                                                reservation.getPaymentMethod().toString()
                                         );
                                         System.out.println("Payment confirmation email sent successfully");
                                     } catch (Exception e) {
@@ -167,7 +167,7 @@ public class PaymentController {
                                 reservation.getCheckIn(),
                                 reservation.getCheckOut(),
                                 reservation.getTotalPrice(),
-                                reservation.getPaymentMethod()
+                                reservation.getPaymentMethod().toString()
                         );
                     } catch (Exception e) {
                         System.err.println("Error sending payment confirmation email: " + e.getMessage());

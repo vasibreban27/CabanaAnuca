@@ -128,8 +128,8 @@ public class Reservation {
         this.paid = paid;
     }
 
-    public String getPaymentMethod() {
-        return paymentMethod.toString();
+    public PaymentMethod getPaymentMethod() {
+        return paymentMethod;
     }
 
     public void setPaymentMethod(PaymentMethod paymentMethod) {

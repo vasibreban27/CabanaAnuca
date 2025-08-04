@@ -10,6 +10,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/reservations")
@@ -151,5 +152,31 @@ public class ReservationController {
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(0.0);
         }
+    }
+
+    @PutMapping("/{id}")
+    public Optional<ResponseEntity<Reservation>> updateRepository(@PathVariable  Integer id, @RequestBody Reservation updated){
+        return Optional.of(reservationRepository.findById(id).map(existing -> {
+            existing.setName(updated.getName());
+            existing.setCabinType(updated.getCabinType());
+            existing.setCheckIn(updated.getCheckIn());
+            existing.setCheckOut(updated.getCheckOut());
+            existing.setPaid(updated.isPaid());
+            existing.setEmail(updated.getEmail());
+            existing.setTotalPrice(updated.getTotalPrice());
+            existing.setId(updated.getId());
+            existing.setPaymentMethod(updated.getPaymentMethod());
+            reservationRepository.save(existing);
+            return ResponseEntity.ok(existing);
+        }).orElse(ResponseEntity.notFound().build()));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteReservation(@PathVariable  Integer id) {
+        if(reservationRepository.existsById(id)) {
+            reservationRepository.deleteById(id);
+            return ResponseEntity.ok().build();
+        }
+        return ResponseEntity.notFound().build();
     }
 }

@@ -587,28 +587,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
 
-
-    function openAlbum(albumId) {
-        const albums = document.querySelectorAll('.album');
-        albums.forEach(album => {
-            album.classList.remove('active');
-        });
-
-        document.getElementById(albumId + '-album').classList.add('active');
-
-        document.body.style.overflow = 'hidden';
-    }
-
-
-    function closeAlbum() {
-        const albums = document.querySelectorAll('.album');
-        albums.forEach(album => {
-            album.classList.remove('active');
-        });
-
-        document.body.style.overflow = 'auto';
-    }
-
     window.onclick = function(event) {
         const albums = document.querySelectorAll('.album');
         albums.forEach(album => {
@@ -805,6 +783,27 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 })
+
+function openAlbum(albumId) {
+    const albums = document.querySelectorAll('.album');
+    albums.forEach(album => {
+        album.classList.remove('active');
+    });
+
+    document.getElementById(albumId + '-album').classList.add('active');
+
+    document.body.style.overflow = 'hidden';
+}
+
+
+function closeAlbum() {
+    const albums = document.querySelectorAll('.album');
+    albums.forEach(album => {
+        album.classList.remove('active');
+    });
+
+    document.body.style.overflow = 'auto';
+}
 
 const animateOnScroll = () => {
     const sections = document.querySelectorAll('section');
