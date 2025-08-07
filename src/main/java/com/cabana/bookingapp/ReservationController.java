@@ -5,6 +5,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
@@ -45,7 +47,7 @@ public class ReservationController {
             reservation.setName(requestData.get("name"));
             reservation.setEmail(requestData.get("email"));
 
-            reservation.setPaid(requestData.containsKey("paid") ? Boolean.parseBoolean(requestData.get("paid")) : false);
+            reservation.setPaid(requestData.containsKey("paid") && Boolean.parseBoolean(requestData.get("paid")));
 
             if (requestData.containsKey("paymentMethod")) {
                 try {
@@ -155,20 +157,22 @@ public class ReservationController {
     }
 
     @PutMapping("/{id}")
-    public Optional<ResponseEntity<Reservation>> updateRepository(@PathVariable  Integer id, @RequestBody Reservation updated){
-        return Optional.of(reservationRepository.findById(id).map(existing -> {
-            existing.setName(updated.getName());
-            existing.setCabinType(updated.getCabinType());
-            existing.setCheckIn(updated.getCheckIn());
-            existing.setCheckOut(updated.getCheckOut());
-            existing.setPaid(updated.isPaid());
-            existing.setEmail(updated.getEmail());
-            existing.setTotalPrice(updated.getTotalPrice());
-            existing.setId(updated.getId());
-            existing.setPaymentMethod(updated.getPaymentMethod());
-            reservationRepository.save(existing);
-            return ResponseEntity.ok(existing);
-        }).orElse(ResponseEntity.notFound().build()));
+    public ResponseEntity<Reservation> updateReservation(@PathVariable Integer id, @RequestBody Reservation updated) {
+        return reservationRepository.findById(id)
+                .map(existing -> {
+                    existing.setName(updated.getName());
+                    existing.setEmail(updated.getEmail());
+                    existing.setCheckIn(updated.getCheckIn());
+                    existing.setCheckOut(updated.getCheckOut());
+                    existing.setCabinType(updated.getCabinType());
+                    existing.setTotalPrice(updated.getTotalPrice());
+                    existing.setPaymentMethod(updated.getPaymentMethod());
+                    existing.setPaid(updated.isPaid());
+
+                    Reservation savedReservation = reservationRepository.save(existing);
+                    return ResponseEntity.ok(savedReservation);
+                })
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/{id}")
@@ -178,5 +182,84 @@ public class ReservationController {
             return ResponseEntity.ok().build();
         }
         return ResponseEntity.notFound().build();
+    }
+
+    @GetMapping("/stats")
+    public ResponseEntity<Map<String, Object>> getReservationStats() {
+        try {
+            LocalDate now = LocalDate.now();
+            LocalDate startOfMonth = now.withDayOfMonth(1);
+            LocalDate endOfMonth = now.withDayOfMonth(now.lengthOfMonth());
+
+            //active reservations
+            List<Reservation> activeReservations = reservationRepository
+                    .findByCheckInLessThanEqualAndCheckOutGreaterThanEqual(now, now);
+
+            //monthly income
+            Double monthlyIncome = reservationRepository
+                    .findByCheckInBetween(startOfMonth, endOfMonth)
+                    .stream()
+                    .mapToDouble(Reservation::getTotalPrice)
+                    .sum();
+
+            // occupation rate
+            long totalDaysInMonth = now.lengthOfMonth();
+            long occupiedDays = reservationRepository
+                    .findByCheckInBetween(startOfMonth, endOfMonth)
+                    .stream()
+                    .mapToLong(r -> ChronoUnit.DAYS.between(
+                            r.getCheckIn().isAfter(startOfMonth) ? r.getCheckIn() : startOfMonth,
+                            r.getCheckOut().isBefore(endOfMonth) ? r.getCheckOut() : endOfMonth
+                    ))
+                    .sum();
+
+            double occupancyRate = totalDaysInMonth > 0 ?
+                    (double) occupiedDays / totalDaysInMonth * 100 : 0;
+
+            // last 5 reservations
+            List<Reservation> recentReservations = reservationRepository
+                    .findTop5ByOrderByCheckInDesc();
+
+            //notifications
+            List<Map<String, Object>> notifications = Arrays.asList(
+                    Map.of(
+                            "type", "system",
+                            "message", "Ultima actualizare: " + LocalDateTime.now().format(DateTimeFormatter.ofPattern("HH:mm")),
+                            "timestamp", LocalDateTime.now().minusMinutes(5)
+                    ),
+                    Map.of(
+                            "type", "reservation",
+                            "message", "Rezervare nouă de la " +
+                                    (recentReservations.isEmpty() ? "un client" : recentReservations.get(0).getName()),
+                            "timestamp", LocalDateTime.now().minusHours(1)
+                    )
+            );
+
+            return ResponseEntity.ok(Map.of(
+                    "stats", Map.of(
+                            "activeReservations", activeReservations.size(),
+                            "monthlyIncome", monthlyIncome,
+                            "occupancyRate", Math.round(occupancyRate)
+                    ),
+                    "recentReservations", recentReservations.stream().map(this::toReservationDto).toList(),
+                    "notifications", notifications
+            ));
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().build();
+        }
+    }
+
+    private Map<String, Object> toReservationDto(Reservation r) {
+        return Map.of(
+                "id", r.getId(),
+                "name", r.getName(),
+                "email", r.getEmail(),
+                "checkIn", r.getCheckIn(),
+                "checkOut", r.getCheckOut(),
+                "cabinType", r.getCabinType().name(),
+                "totalPrice", r.getTotalPrice(),
+                "paymentMethod", r.getPaymentMethod().name(),
+                "paid", r.isPaid()
+        );
     }
 }

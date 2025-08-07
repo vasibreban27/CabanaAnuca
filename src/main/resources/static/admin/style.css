@@ -249,3 +249,51 @@ tr:hover {
     color: #999;
     font-size: 12px;
 }
+
+.dashboard-page .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.status {
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.status.confirmed {
+    background-color: rgba(42, 157, 143, 0.2);
+    color: var(--success);
+}
+
+.status.completed {
+    background-color: rgba(67, 97, 238, 0.2);
+    color: var(--primary);
+}
+
+.status.cancelled {
+    background-color: rgba(230, 57, 70, 0.2);
+    color: var(--danger);
+}
+
+#recentReservations {
+    width: 100%;
+}
+
+#recentReservations th {
+    background-color: var(--primary);
+    color: white;
+}
+
+#recentReservations td {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+#refreshBtn {
+    padding: 8px 15px;
+    font-size: 14px;
+}

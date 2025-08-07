@@ -29,7 +29,7 @@ public class BookingIntegrationTest {
         when(reservationRepository.save(any())).thenReturn(reservation);
 
         // When
-        PaymentRequest request = new PaymentRequest(200.0, "STANDARD", 1);
+        PaymentRequest request = new PaymentRequest(150, "STANDARD", 1);
         Map<String, String> response = paymentController.createCheckoutSession(request);
 
         // Then
