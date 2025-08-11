@@ -1,5 +1,6 @@
 # CabanaAnuca
 1. Project Description
+   
   This project is a website for presenting a cabin resort (CabanaAnuca). It uses Spring Boot for the backend, MySql for database and HTML, CSS, and JavaScript for the frontend. Key features include:
 
   Cabin showcase pages
@@ -11,6 +12,7 @@
   Contact section with embedded Google Maps
   
   Virtual chatbot for additional info
+  
   
 2. Technologies Used
    
@@ -25,14 +27,17 @@
   Email: email-sending service (e.g., SMTP, JavaMail)
   
   Maps: Google Maps
+  
 
 3. Installation and Configuration
    
    3.1 Clone the repo on your local machine:
+   
       git clone https://github.com/vasibreban27/CabanaAnuca.git
       cd CabanaAnuca
    
    3.2 Configure the application
+   
      --for Stripe
            stripe.api.key=API_KEY
            stripe.webhook.secret=WEBHOOK_SECRET
@@ -50,13 +55,15 @@
           spring.datasource.username=USERNAME
           spring.datasource.password=PASSWORD
           spring.jpa.hibernate.ddl-auto=update
+   
      --for Google Maps
          google.maps.api.key=API_KEY
    
      --run the app : ./mvnw spring-boot:run
 
 
-4. Usage
+5. Usage
+   
   Browse the cabin showcase pages
 
   Select a cabin and complete the reservation form
@@ -69,6 +76,7 @@
   
 
 5. Future Improvements
+   
    -Better Email Templates – Use HTML email templates for better styling and branding.
    
    -Responsive Design – Ensure the frontend is mobile-friendly, especially for payment and booking pages.
