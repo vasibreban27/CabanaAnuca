@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
     <link rel="stylesheet" href="../style.css">
     <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="../chatbot/chatbot.css" />
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -199,6 +200,24 @@
     </div>
 </section>
 
+<!-- Chatbot Toggle Button -->
+<button id="chatbot-toggle" class="chatbot-toggle-btn">
+    <i class="fas fa-comments"></i>
+</button>
+
+<!-- Chatbot Container -->
+<div id="chatbot-container" style="display: none;">
+    <div id="chat-header">
+        Asistent Virtual
+        <span id="chat-close-btn" class="chat-close-btn">&times;</span>
+    </div>
+    <div id="chat-body"></div>
+    <form id="chat-form">
+        <input type="text" id="chat-input" placeholder="Scrie un mesaj..." autocomplete="off" />
+        <button type="submit">Trimite</button>
+    </form>
+</div>
+
 <!-- Footer -->
 <footer>
     <div class="footer-content">
@@ -229,5 +248,6 @@
 </footer>
 
 <script src="../app.js"></script>
+<script src="../chatbot/chatbot.js"></script>
 </body>
 </html>
